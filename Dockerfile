@@ -6,6 +6,6 @@ RUN apt-get update && \
 
 WORKDIR /app
 
-COPY comet.exe comet
+COPY comet .
 
 ENV PATH="/app:$PATH"
