@@ -26,7 +26,7 @@ jobs:
       run: ./build.sh
 
     - name: Test the Comet executable
-      run: ./comet.exe -p
+      run: ./comet -p
 
     - name: Extract metadata for Docker
       id: meta
@@ -52,3 +52,13 @@ jobs:
 
     - name: Test the Docker image
       run: docker run talusbio/comet:main comet -p
+
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v2
+      if: ${{ github.event_name == 'release' }}
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ github.ref }}
+        file: ./comet
+        asset_name: Ubuntu
+        overwrite: true
