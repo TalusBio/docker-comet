@@ -1,0 +1,28 @@
+# Builds Comet on Linux, MacOS, and Windows
+name: Build and test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env: VERSION=$(cat )
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set version
+      run: echo "VERSION=$(cat VERSION)" >> $GITHUB_ENV
+
+    - name: Build comet
+      run: ./build.sh
+
+    - name: Test comet
+      run: comet.exe -P
+
+    - name: Build container
+      run: |
+        docker build .
