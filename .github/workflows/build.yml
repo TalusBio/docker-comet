@@ -20,7 +20,7 @@ jobs:
       run: ./build.sh
 
     - name: Test comet
-      run: ./comet.exe -P
+      run: ./comet.exe -p
 
     - name: Build container
       run: |
