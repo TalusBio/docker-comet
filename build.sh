@@ -5,8 +5,8 @@ version="${VERSION:-HEAD}"
 
 checkout () {
     git clone https://github.com/UWPR/Comet.git
-    git checkout ${version}
     cd Comet
+    git checkout ${version}
 }
 
 main () {
