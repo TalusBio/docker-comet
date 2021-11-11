@@ -12,6 +12,8 @@ checkout () {
 main () {
     checkout
     make
+    mv comet.exe ../comet.exe
+    cd ..
 }
 
 main
