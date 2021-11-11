@@ -1,11 +1,17 @@
 # Builds Comet on Linux, MacOS, and Windows
-name: Build and test
+name: Build, test, and reslease
 
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  release:
+    types: [ created ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: TalusBio/comet
 
 jobs:
   build:
@@ -16,14 +22,12 @@ jobs:
     - name: Set version
       run: echo "VERSION=$(cat VERSION)" >> $GITHUB_ENV
 
-    - name: Build comet
+    - name: Build Comet
       run: ./build.sh
 
-    - name: Test comet
+    - name: Test the Comet executable
       run: ./comet.exe -p
 
-    - name: Build container
-      run: docker build . -t comet
-
-    - name: Test container
-      run: docker run comet comet -p
+    - name: Build the Docker container
+      if: ${{ jobs.build.runs-on == "ubuntu-latest" }}
+      using: build-docker
