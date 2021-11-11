@@ -32,7 +32,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v3
       with:
-        images: ${{ env.IMAGE_NAME }}
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
     - name: Log in to the GitHub Container registry
       if: ${{ github.event_name == 'release' }}
@@ -51,7 +51,7 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
 
     - name: Test the Docker image
-      run: docker run talusbio/comet:main comet -p
+      run: docker run ${REGISTRY}/talusbio/comet:main comet -p
 
     - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v2
