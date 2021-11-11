@@ -26,5 +26,5 @@ jobs:
       run: docker build . -t comet
 
     - name: Test container
-      image: comet
+      container: comet
       run: comet -p
