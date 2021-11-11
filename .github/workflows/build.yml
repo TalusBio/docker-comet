@@ -23,5 +23,8 @@ jobs:
       run: ./comet.exe -p
 
     - name: Build container
-      run: |
-        docker build .
+      run: docker build . -t comet
+
+    - name: Test container
+      image: comet
+      run: comet -p
